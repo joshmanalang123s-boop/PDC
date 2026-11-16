@@ -1,0 +1,2579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070c18">
+  <meta name="description" content="Josh Manalang — Academic Portfolio for Subject PDC06, showcasing 20 projects with AI collaborative prompt logs and technical implementations.">
+  <title>Josh Manalang | PDC06 Academic Portfolio & AI Collaboration Logs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070c18;
+      --bg-card: rgba(14, 23, 42, 0.78);
+      --bg-card-hover: rgba(20, 32, 58, 0.95);
+      --border: rgba(148, 163, 184, 0.12);
+      --border-focus: rgba(94, 234, 212, 0.4);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --cyan: #38bdf8;
+      --teal: #2dd4bf;
+      --lime: #a3e635;
+      --violet: #a78bfa;
+      --amber: #fbbf24;
+      --rose: #fb7185;
+      --glow: rgba(56, 189, 248, 0.15);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 8px;
+      --max-w: 1240px;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 86px; }
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(56, 189, 248, 0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 90% 40%, rgba(167, 139, 250, 0.08), transparent),
+        radial-gradient(ellipse 50% 30% at 10% 80%, rgba(45, 212, 191, 0.06), transparent);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: none; }
+    .wrap { width: min(var(--max-w), calc(100% - 48px)); margin: 0 auto; }
+
+    /* Navigation */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7, 12, 24, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand {
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .brand span { color: var(--cyan); }
+    .academic-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--cyan);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .ai-badge-nav {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(167, 139, 250, 0.12);
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      color: var(--violet);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+    .nav-links a { transition: color 0.15s ease; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--cyan); }
+
+    .btn-nav {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-nav:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--cyan);
+      color: var(--cyan);
+      transform: translateY(-1px);
+    }
+    .mobile-btn {
+      display: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 1.4rem;
+      padding: 6px;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 85px 0 65px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 50px;
+      align-items: center;
+    }
+    .eyebrow-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .eyebrow-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(45, 212, 191, 0.08);
+      border: 1px solid rgba(45, 212, 191, 0.25);
+      color: var(--teal);
+    }
+    .dot-live {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 10px var(--lime);
+    }
+    .hero-subject-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+    h1 {
+      font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 1.05;
+      margin-bottom: 22px;
+    }
+    h1 .text-gradient {
+      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-desc {
+      font-size: 1.08rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      max-width: 620px;
+      margin-bottom: 30px;
+    }
+    .hero-desc strong { color: var(--text); font-weight: 600; }
+    
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 38px;
+    }
+    .btn-primary {
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      background: var(--cyan);
+      color: #031024;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-primary:hover {
+      background: #7dd3fc;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(56, 189, 248, 0.25);
+    }
+    .btn-secondary {
+      padding: 12px 22px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .hero-metrics {
+      display: flex;
+      gap: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.03em;
+    }
+    .metric-val span { color: var(--cyan); }
+    .metric-lbl {
+      font-size: 0.76rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 2px;
+    }
+
+    /* Hero Visual Card */
+    .hero-card {
+      position: relative;
+      background: linear-gradient(145deg, rgba(17, 28, 52, 0.8), rgba(11, 19, 36, 0.9));
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.4), transparent 60%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .author-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .author-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #0284c7, #6366f1);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.15rem;
+      box-shadow: 0 8px 18px rgba(2, 132, 199, 0.3);
+    }
+    .author-meta h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .author-meta p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+    .spec-block {
+      background: rgba(7, 12, 24, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+    .spec-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .spec-text {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .spec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .spec-item {
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .spec-item small {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+    .spec-item span {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* AI Transparency Banner */
+    .ai-transparency-box {
+      margin-top: 30px;
+      padding: 24px 28px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(56, 189, 248, 0.06));
+      border: 1px solid rgba(167, 139, 250, 0.25);
+      border-radius: var(--radius-md);
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .ai-icon-large {
+      font-size: 2.2rem;
+      background: rgba(167, 139, 250, 0.15);
+      border-radius: 14px;
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(167, 139, 250, 0.3);
+    }
+    .ai-transparency-content {
+      flex: 1;
+      min-width: 280px;
+    }
+    .ai-transparency-content h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ai-transparency-content p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Section Headers */
+    section { padding: 80px 0; }
+    .section-head {
+      margin-bottom: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .section-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--cyan);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-kicker::before {
+      content: '//';
+      color: var(--teal);
+    }
+    .section-title {
+      font-size: clamp(1.9rem, 3.8vw, 2.7rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+    .section-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.6;
+    }
+
+    /* Filters Bar */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+      padding: 6px;
+      background: rgba(14, 23, 42, 0.5);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      width: fit-content;
+    }
+    .filter-btn {
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: transparent;
+      transition: all 0.18s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .filter-btn .count {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-dim);
+    }
+    .filter-btn:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .filter-btn.active {
+      background: var(--cyan);
+      color: #031024;
+      font-weight: 700;
+    }
+    .filter-btn.active .count {
+      background: rgba(3, 16, 36, 0.25);
+      color: #031024;
+      font-weight: 700;
+    }
+
+    /* Project Cards Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 22px;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      background: var(--bg-card-hover);
+      border-color: var(--border-focus);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    }
+    .project-card[data-hidden="true"] {
+      display: none;
+    }
+
+    .card-banner {
+      height: 110px;
+      padding: 16px 20px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+    .banner-pattern {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(14, 23, 42, 0.95), transparent 70%);
+    }
+    .banner-icon {
+      position: relative;
+      z-index: 2;
+      font-size: 1.85rem;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+    }
+    .banner-tag {
+      position: relative;
+      z-index: 2;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    /* Gradients for banners */
+    .g-1 { background: linear-gradient(135deg, #0284c7, #1e293b); }
+    .g-2 { background: linear-gradient(135deg, #059669, #0f172a); }
+    .g-3 { background: linear-gradient(135deg, #e11d48, #312e81); }
+    .g-4 { background: linear-gradient(135deg, #d97706, #1e1b4b); }
+    .g-5 { background: linear-gradient(135deg, #7c3aed, #0c4a6e); }
+    .g-6 { background: linear-gradient(135deg, #4f46e5, #065f46); }
+    .g-7 { background: linear-gradient(135deg, #ea580c, #1e293b); }
+    .g-8 { background: linear-gradient(135deg, #0891b2, #312e81); }
+    .g-9 { background: linear-gradient(135deg, #2563eb, #701a75); }
+    .g-10 { background: linear-gradient(135deg, #10b981, #1e3a8a); }
+    .g-11 { background: linear-gradient(135deg, #9333ea, #831843); }
+    .g-12 { background: linear-gradient(135deg, #0284c7, #065f46); }
+    .g-13 { background: linear-gradient(135deg, #dc2626, #431407); }
+    .g-14 { background: linear-gradient(135deg, #b45309, #365314); }
+    .g-15 { background: linear-gradient(135deg, #4338ca, #155e75); }
+    .g-16 { background: linear-gradient(135deg, #047857, #1e1b4b); }
+    .g-17 { background: linear-gradient(135deg, #6366f1, #0284c7); }
+    .g-18 { background: linear-gradient(135deg, #374151, #111827); }
+    .g-19 { background: linear-gradient(135deg, #8b5cf6, #3b82f6); }
+    .g-20 { background: linear-gradient(135deg, #0f766e, #134e4a); }
+
+    .card-content {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .card-meta-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .card-category {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .status-pill {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(163, 230, 53, 0.1);
+      border: 1px solid rgba(163, 230, 53, 0.25);
+      color: var(--lime);
+    }
+    .status-pill.academic {
+      background: rgba(167, 139, 250, 0.1);
+      border-color: rgba(167, 139, 250, 0.25);
+      color: var(--violet);
+    }
+    .status-pill.lab {
+      background: rgba(56, 189, 248, 0.1);
+      border-color: rgba(56, 189, 248, 0.25);
+      color: var(--cyan);
+    }
+
+    .project-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+    .project-summary {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      flex-grow: 1;
+    }
+    
+    .tech-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .tech-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      gap: 8px;
+    }
+    .btn-ai-log {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 5px 9px;
+      border-radius: 6px;
+      background: rgba(167, 139, 250, 0.1);
+      border: 1px solid rgba(167, 139, 250, 0.25);
+      color: var(--violet);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.18s;
+    }
+    .btn-ai-log:hover {
+      background: rgba(167, 139, 250, 0.22);
+      color: #fff;
+    }
+    .btn-detail {
+      color: var(--cyan);
+      font-weight: 600;
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: gap 0.2s, color 0.15s;
+    }
+    .btn-detail:hover {
+      color: var(--teal);
+      gap: 8px;
+    }
+
+    /* Modal / Drawer for Project Details & AI Log */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(3, 7, 18, 0.88);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.open {
+      display: flex;
+      opacity: 1;
+    }
+    .modal-box {
+      background: #0f172a;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: var(--radius-lg);
+      width: min(840px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+      position: relative;
+      animation: modalSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalSlide {
+      from { transform: translateY(20px) scale(0.97); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    .modal-header {
+      padding: 22px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+    .modal-title-wrap h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+    .modal-title-wrap p {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--cyan);
+      margin-top: 4px;
+    }
+    .modal-close {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      transition: all 0.15s;
+    }
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--text);
+    }
+    .modal-body {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .modal-section {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+    }
+    .modal-section h4 {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-section p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .modal-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .modal-list li {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      position: relative;
+      padding-left: 20px;
+    }
+    .modal-list li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+    }
+
+    /* AI Conversation Box inside Modal */
+    .ai-chat-box {
+      background: #070d1c;
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .ai-chat-header {
+      background: rgba(167, 139, 250, 0.12);
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ai-chat-title {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--violet);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .ai-transparency-pill {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(45, 212, 191, 0.12);
+      color: var(--teal);
+      border: 1px solid rgba(45, 212, 191, 0.25);
+    }
+    .ai-chat-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .chat-bubble {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .bubble-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .avatar-user {
+      background: #0284c7;
+      color: #fff;
+    }
+    .avatar-ai {
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      color: #fff;
+    }
+    .bubble-text-wrap {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .bubble-role {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .role-user { color: var(--cyan); }
+    .role-ai { color: var(--violet); }
+    .bubble-content {
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+    .bubble-code {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: #030712;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: #38bdf8;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    .ai-reflection-box {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: rgba(163, 230, 53, 0.06);
+      border-left: 3px solid var(--lime);
+      font-size: 0.84rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .ai-reflection-box strong {
+      color: var(--lime);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      display: block;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Skills Grid */
+    .skills-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+    .skill-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .skill-box:hover {
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+    .skill-icon {
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+      display: inline-block;
+    }
+    .skill-box h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .skill-box p {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Academic Journey / Timeline */
+    .timeline-container {
+      position: relative;
+      padding-left: 32px;
+      border-left: 2px solid rgba(56, 189, 248, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+      max-width: 860px;
+    }
+    .timeline-node {
+      position: relative;
+    }
+    .timeline-node::before {
+      content: '';
+      position: absolute;
+      left: -40px;
+      top: 6px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+    }
+    .node-date {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .node-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+    }
+    .node-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .node-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Academic Context Card */
+    .academic-banner {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .academic-banner-content h2 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+    .academic-banner-content p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      max-width: 620px;
+      line-height: 1.65;
+    }
+    .academic-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0 35px;
+      color: var(--text-dim);
+      font-size: 0.82rem;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+    .footer-academic {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; gap: 35px; padding-top: 60px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .section-head { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+    @media (max-width: 680px) {
+      .wrap { width: calc(100% - 32px); }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 74px;
+        left: 0;
+        right: 0;
+        background: #090e1b;
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px;
+        gap: 18px;
+      }
+      .nav-links.open { display: flex; }
+      .mobile-btn { display: block; }
+      .btn-nav { display: none; }
+      .hero-metrics { flex-wrap: wrap; gap: 16px; }
+      .filter-bar { width: 100%; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 8px; }
+      .filter-btn { white-space: nowrap; }
+      .academic-banner { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <div class="brand-wrap">
+        <a class="brand" href="#home">JM<span>.</span></a>
+        <span class="academic-badge">PDC06 Coursework</span>
+        <span class="ai-badge-nav">✨ AI-Assisted</span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About Course</a>
+        <a href="#ai-transparency">AI Transparency</a>
+        <a href="#projects">All 20 Projects</a>
+        <a href="#skills">Competencies</a>
+        <a href="#journey">Timeline</a>
+        <a href="#course-context">PDC06 Scope</a>
+      </div>
+      <a class="btn-nav" href="#projects">
+        <span>Explore Catalogue</span> ↗
+      </a>
+      <button class="mobile-btn" id="mobileToggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <header class="wrap hero" id="home">
+      <div>
+        <div class="eyebrow-container">
+          <span class="eyebrow-chip">
+            <span class="dot-live"></span> ACADEMIC PORTFOLIO · PDC06
+          </span>
+          <span class="hero-subject-tag">Angeles University Foundation</span>
+        </div>
+        <h1>
+          Distributed Systems,<br>
+          <span class="text-gradient">Cloud & Software Engineering.</span>
+        </h1>
+        <p class="hero-desc">
+          Welcome to my academic portfolio created for <strong>PDC06</strong>. This catalogue presents <strong>20 hands-on projects</strong> with full <strong>AI Collaborative Prompt Transcripts</strong> to demonstrate transparent AI-assisted learning, debugging, algorithm design, and software quality assurance throughout the semester.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn-primary" href="#projects">
+            <span>Browse 20 Projects with AI Logs</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a class="btn-secondary" href="#ai-transparency">
+            <span>AI Transparency Statement</span>
+          </a>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric-item">
+            <span class="metric-val">20<span>/20</span></span>
+            <span class="metric-lbl">Projects with AI Dialogues</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">100<span>%</span></span>
+            <span class="metric-lbl">Academic Transparency</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">PDC06</span>
+            <span class="metric-lbl">Subject Coursework</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual Sidecard -->
+      <div class="hero-card">
+        <div class="card-top">
+          <div class="author-info">
+            <div class="author-avatar">JM</div>
+            <div class="author-meta">
+              <h2>Josh Manalang</h2>
+              <p>BS Information Technology</p>
+            </div>
+          </div>
+          <span class="academic-badge">Academic Ref</span>
+        </div>
+
+        <div class="spec-block">
+          <div class="spec-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            Course & AI Transparency Statement
+          </div>
+          <p class="spec-text">
+            Prepared for the course <strong>PDC06</strong> at <strong>Angeles University Foundation (AUF)</strong>. Every project showcases the exact prompts given to the AI and how the student analyzed and implemented the solutions.
+          </p>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec-item">
+            <small>AI UTILIZATION</small>
+            <span>Pair-Programming & QA</span>
+          </div>
+          <div class="spec-item">
+            <small>PROMPT LOGS</small>
+            <span>Interactive Modals</span>
+          </div>
+          <div class="spec-item">
+            <small>ARCHITECTURE</small>
+            <span>Distributed & Cloud</span>
+          </div>
+          <div class="spec-item">
+            <small>STANDARDS</small>
+            <span>IEEE 829 SQA</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- AI Transparency Declaration Section -->
+    <section id="ai-transparency" style="padding-top: 0;">
+      <div class="wrap">
+        <div class="ai-transparency-box">
+          <div class="ai-icon-large">🤖</div>
+          <div class="ai-transparency-content">
+            <h3>PDC06 Academic Integrity & AI-Assisted Methodology Statement</h3>
+            <p>
+              In compliance with academic standards for <strong>PDC06</strong>, this portfolio documents how Artificial Intelligence was utilized as an engineering assistant throughout the semester. AI was leveraged for <strong>debugging tricky runtime errors (e.g., PHP SQS extension issues), structuring IEEE test case matrices, architecting AWS VPC subnets, and optimizing Redis Cache-Aside pipelines</strong>. Every project below includes an authentic prompt-response dialogue showing student inquiry, AI recommendation, and final implementation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Course Objectives</div>
+            <h2 class="section-title">Academic Pillars of PDC06.</h2>
+          </div>
+          <p class="section-subtitle">
+            This project portfolio is created as an academic submission for the PDC06 subject. It provides documented proof of technical implementations, cloud computing labs, and software lifecycle executions.
+          </p>
+        </div>
+
+        <div class="skills-wrapper">
+          <div class="skill-box">
+            <div class="skill-icon">🌐</div>
+            <h3>Distributed & Cloud Systems</h3>
+            <p>Hands-on implementation of Amazon Web Services (EC2, SQS, CloudWatch), in-memory Redis caching layers, decoupled event queues, and multi-tier cloud infrastructure.</p>
+          </div>
+          <div class="skill-box">
+            <div class="skill-icon">🧠</div>
+            <h3>Computer Vision & AI</h3>
+            <p>Applied research in optical character recognition (OCR) for license plate extraction, NLP-based misinformation detection, and agentic workflows.</p>
+          </div>
+          <div class="skill-box">
+            <div class="skill-icon">💻</div>
+            <h3>Full-Stack & Systems Architecture</h3>
+            <p>Developing secure, responsive web applications with PHP, Python Django, modern React, relational MySQL schemas, and enterprise SIA middleware.</p>
+          </div>
+          <div class="skill-box">
+            <div class="skill-icon">🧪</div>
+            <h3>Software Quality Assurance</h3>
+            <p>IEEE-aligned test case authoring, boundary value analysis, regression testing, defect documentation, and release candidate verification.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Complete Works Catalogue</div>
+            <h2 class="section-title">20 Projects with AI Dialogue Logs.</h2>
+          </div>
+          <p class="section-subtitle">
+            Click <strong>"View AI Prompt Log"</strong> or <strong>"View Details ↗"</strong> on any card to see the actual conversation with AI and how it was applied to the activity.
+          </p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="filter-bar" role="group" aria-label="Filter projects">
+          <button class="filter-btn active" data-filter="all">
+            All Projects <span class="count">20</span>
+          </button>
+          <button class="filter-btn" data-filter="dev">
+            Web & Systems <span class="count">8</span>
+          </button>
+          <button class="filter-btn" data-filter="cloud">
+            Cloud & Distributed <span class="count">5</span>
+          </button>
+          <button class="filter-btn" data-filter="ai">
+            AI & Computer Vision <span class="count">4</span>
+          </button>
+          <button class="filter-btn" data-filter="qa">
+            Quality Assurance <span class="count">3</span>
+          </button>
+        </div>
+
+        <!-- Project Cards Grid -->
+        <div class="projects-grid" id="projectGrid">
+
+          <!-- 1. AutoTrace -->
+          <article class="project-card" data-cat="dev ai">
+            <div class="card-banner g-1">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🚘</span>
+              <span class="banner-tag">Capstone & Thesis</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Computer Vision · Web System</span>
+                <span class="status-pill">Active Development</span>
+              </div>
+              <h3 class="project-name">AutoTrace: Smart Parking Management System</h3>
+              <p class="project-summary">
+                An automated parking management system combining OCR-driven license plate recognition, real-time slot occupancy tracking, monthly parking membership subscriptions, and automated fee calculations.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Python/OpenCV</span>
+                <span class="tech-tag">OCR</span>
+                <span class="tech-tag">PHP/MySQL</span>
+                <span class="tech-tag">Monthly Memberships</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('autotrace')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('autotrace')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. Barangay Resident Information Management System -->
+          <article class="project-card" data-cat="dev">
+            <div class="card-banner g-2">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🏛️</span>
+              <span class="banner-tag">Web Portal</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Community Information System</span>
+                <span class="status-pill academic">Academic Project</span>
+              </div>
+              <h3 class="project-name">Barangay Resident Information Management System</h3>
+              <p class="project-summary">
+                A localized municipal management portal designed to streamline resident record keeping, certificate and barangay clearance issuance, incident blotter logging, and population analytics.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">Bootstrap 5</span>
+                <span class="tech-tag">Role-Based Access</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('brims')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('brims')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3. Fake Buster -->
+          <article class="project-card" data-cat="ai dev">
+            <div class="card-banner g-3">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🛡️</span>
+              <span class="banner-tag">AI & NLP System</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">NLP · Credibility Analysis</span>
+                <span class="status-pill academic">Research System</span>
+              </div>
+              <h3 class="project-name">Fake Buster: Misinformation Detection System</h3>
+              <p class="project-summary">
+                An intelligent system designed to analyze news articles and public claims, cross-referencing linguistic patterns and verified sources to produce real-time credibility confidence scores.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">NLP</span>
+                <span class="tech-tag">Scikit-Learn</span>
+                <span class="tech-tag">Classification</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('fakebuster')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('fakebuster')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. ShopSmart E-Commerce & QA -->
+          <article class="project-card" data-cat="dev qa">
+            <div class="card-banner g-4">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🛍️</span>
+              <span class="banner-tag">Web App & QA</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">E-Commerce · SQA Verification</span>
+                <span class="status-pill">Release Verified</span>
+              </div>
+              <h3 class="project-name">ShopSmart: E-Commerce & Verification Suite</h3>
+              <p class="project-summary">
+                A modular e-commerce storefront utilized as a live target system for rigorous QA test cycles, bug lifecycle tracking, regression verification, and local release candidate sign-off.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">HTML5/CSS3</span>
+                <span class="tech-tag">QA Testing</span>
+                <span class="tech-tag">Release Candidate</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('shopsmart')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('shopsmart')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5. OCR Thesis Research Pipeline -->
+          <article class="project-card" data-cat="ai dev">
+            <div class="card-banner g-5">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🔬</span>
+              <span class="banner-tag">Thesis Research</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Optical Character Recognition</span>
+                <span class="status-pill academic">Research Pipeline</span>
+              </div>
+              <h3 class="project-name">OCR License Plate Extraction Pipeline</h3>
+              <p class="project-summary">
+                Specialized thesis investigation on image preprocessing, character segmentation algorithms, and recognition accuracy under uneven lighting, angle skew, and weather distortions.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Computer Vision</span>
+                <span class="tech-tag">Tesseract/OCR</span>
+                <span class="tech-tag">Adaptive Filtering</span>
+                <span class="tech-tag">Python</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('ocrthesis')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('ocrthesis')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6. Academic Workspace Study Agent -->
+          <article class="project-card" data-cat="ai">
+            <div class="card-banner g-6">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🤖</span>
+              <span class="banner-tag">Agentic AI</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Agent Workflows · Automation</span>
+                <span class="status-pill academic">Workflow Design</span>
+              </div>
+              <h3 class="project-name">Academic Workspace Study Agent</h3>
+              <p class="project-summary">
+                An intelligent multi-stage agent workflow capable of ingesting lecture slides and course syllabi to generate structured summaries, flashcard question sets, and exam answer keys.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">AI Agents</span>
+                <span class="tech-tag">Prompt Engineering</span>
+                <span class="tech-tag">Markdown Pipeline</span>
+                <span class="tech-tag">Human-in-the-Loop</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('studyagent')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('studyagent')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 7. AWS Cloud Infrastructure Design (SAM10) -->
+          <article class="project-card" data-cat="cloud">
+            <div class="card-banner g-7">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">☁️</span>
+              <span class="banner-tag">SAM10 Midterm</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Cloud Architecture · AWS</span>
+                <span class="status-pill lab">Architecture Plan</span>
+              </div>
+              <h3 class="project-name">AWS Multi-Tier Infrastructure Design</h3>
+              <p class="project-summary">
+                An enterprise-grade cloud architecture design proposing VPC subnetting, Application Load Balancers, EC2 Auto Scaling groups, and Amazon RDS Multi-AZ failover for high availability.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">AWS VPC</span>
+                <span class="tech-tag">ALB & Auto Scaling</span>
+                <span class="tech-tag">Amazon RDS</span>
+                <span class="tech-tag">IAM Security</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('awsinfra')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('awsinfra')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 8. EC2 Pet Grooming Booking System -->
+          <article class="project-card" data-cat="cloud dev">
+            <div class="card-banner g-8">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🐾</span>
+              <span class="banner-tag">SAM10 Lab</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">AWS EC2 · Cloud Deployment</span>
+                <span class="status-pill lab">Deployed Lab</span>
+              </div>
+              <h3 class="project-name">EC2-Hosted Pet Grooming Booking Platform</h3>
+              <p class="project-summary">
+                Production-ready cloud deployment of a booking platform on Amazon EC2, orchestrating Strapi Headless CMS content types, Apache/PHP, systemd daemon management, and CloudWatch metrics.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Amazon EC2</span>
+                <span class="tech-tag">Strapi CMS</span>
+                <span class="tech-tag">Linux / Systemd</span>
+                <span class="tech-tag">CloudWatch</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('ec2booking')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('ec2booking')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 9. Hybrid Promotional Campaign SQS Lab -->
+          <article class="project-card" data-cat="cloud dev">
+            <div class="card-banner g-9">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">✉️</span>
+              <span class="banner-tag">Distributed Lab</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Distributed Queues · AWS SQS</span>
+                <span class="status-pill lab">Distributed Queue</span>
+              </div>
+              <h3 class="project-name">Hybrid Campaign Message Queue System</h3>
+              <p class="project-summary">
+                A decoupled distributed messaging architecture using Amazon Simple Queue Service (SQS) and PHP CLI consumers to process background marketing campaigns verified via Mailtrap SMTP.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Amazon SQS</span>
+                <span class="tech-tag">PHP Producer/Consumer</span>
+                <span class="tech-tag">Mailtrap SMTP</span>
+                <span class="tech-tag">ext-filter Fix</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('sqscampaign')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('sqscampaign')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 10. ITE40 SQA Final Project -->
+          <article class="project-card" data-cat="qa">
+            <div class="card-banner g-10">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🧪</span>
+              <span class="banner-tag">ITE40 Coursework</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Software Quality Assurance</span>
+                <span class="status-pill">Full Test Suite</span>
+              </div>
+              <h3 class="project-name">ITE40 AutoTrace Software Quality Suite</h3>
+              <p class="project-summary">
+                Complete IEEE-standard software testing documentation package covering test strategy, test matrix execution, boundary value tests, defect tracking sheets, and pass/fail summary reports.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Test Case Design</span>
+                <span class="tech-tag">Defect Severity</span>
+                <span class="tech-tag">Regression Testing</span>
+                <span class="tech-tag">IEEE Templates</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('ite40qa')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('ite40qa')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 11. Abe Lomboy Grape King Poster -->
+          <article class="project-card" data-cat="ai dev">
+            <div class="card-banner g-11">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🍇</span>
+              <span class="banner-tag">Digital Media</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Educational UI · Digital Media</span>
+                <span class="status-pill academic">Educational Tech</span>
+              </div>
+              <h3 class="project-name">Interactive Educational Infographic: Grape King</h3>
+              <p class="project-summary">
+                A digital educational media showcase celebrating Philippine agricultural pioneer Avelino "Abe" Lomboy, featuring clean visual typography, responsive data layouts, and PDF generation.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">HTML5 / CSS Grid</span>
+                <span class="tech-tag">Visual Storytelling</span>
+                <span class="tech-tag">PDF Rendering</span>
+                <span class="tech-tag">Responsive UI</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('grapemedia')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('grapemedia')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 12. SAM10 Payroll RESTful API -->
+          <article class="project-card" data-cat="cloud dev">
+            <div class="card-banner g-12">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">💵</span>
+              <span class="banner-tag">Cloud Microservice</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">REST API · Cloud Services</span>
+                <span class="status-pill lab">Cloud Backend</span>
+              </div>
+              <h3 class="project-name">SAM10 Payroll RESTful Microservice API</h3>
+              <p class="project-summary">
+                A modular PHP and Composer-powered RESTful payroll calculation engine providing endpoints for salary brackets, tax deductions, government contributions, and digital payslip generation.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">PHP / Composer</span>
+                <span class="tech-tag">RESTful API</span>
+                <span class="tech-tag">JSON Schemas</span>
+                <span class="tech-tag">Apache Routing</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('payrollapi')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('payrollapi')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 13. Calendar Scheduler with Redis Caching -->
+          <article class="project-card" data-cat="cloud dev">
+            <div class="card-banner g-13">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">⚡</span>
+              <span class="banner-tag">Distributed Caching</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">In-Memory Cache · Performance</span>
+                <span class="status-pill lab">Redis Caching</span>
+              </div>
+              <h3 class="project-name">High-Performance Scheduler with Redis Layer</h3>
+              <p class="project-summary">
+                An event and order scheduling system enhanced with an in-memory Redis caching proxy layer to accelerate query response times, cache repeated database reads, and avoid bottleneck spikes.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Redis In-Memory</span>
+                <span class="tech-tag">PHP / Predis</span>
+                <span class="tech-tag">Cache-Aside Pattern</span>
+                <span class="tech-tag">TTL Invalidation</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('redisscheduler')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('redisscheduler')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 14. QuickCart E-Commerce & POS -->
+          <article class="project-card" data-cat="dev">
+            <div class="card-banner g-14">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🛒</span>
+              <span class="banner-tag">PDC50 Coursework</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Client-API Architecture</span>
+                <span class="status-pill academic">Course Project</span>
+              </div>
+              <h3 class="project-name">QuickCart: Point-of-Sale & Storefront Engine</h3>
+              <p class="project-summary">
+                A decoupled e-commerce and point-of-sale system featuring client-side reactive state management, asynchronous inventory updates, and live transaction processing via backend APIs.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">JavaScript ES6</span>
+                <span class="tech-tag">RESTful Endpoints</span>
+                <span class="tech-tag">Session Storage</span>
+                <span class="tech-tag">Transaction Engine</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('quickcart')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('quickcart')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 15. Systems Integration & Architecture (SIA Lab 7) -->
+          <article class="project-card" data-cat="dev">
+            <div class="card-banner g-15">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🔄</span>
+              <span class="banner-tag">SIA Architecture</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Systems Integration · MVC</span>
+                <span class="status-pill academic">Architecture Lab</span>
+              </div>
+              <h3 class="project-name">Enterprise Middleware & Service Integration</h3>
+              <p class="project-summary">
+                A structured systems integration architecture demonstrating controller routing, service decoupling, middleware request sanitation, and modular database adapters built for enterprise scaling.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">MVC Architecture</span>
+                <span class="tech-tag">Service Controllers</span>
+                <span class="tech-tag">Middleware Pipeline</span>
+                <span class="tech-tag">PHP PSR Standards</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('siamiddleware')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('siamiddleware')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 16. Integrative Programming (IPT) Django Framework -->
+          <article class="project-card" data-cat="dev">
+            <div class="card-banner g-16">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🐍</span>
+              <span class="banner-tag">IPT FastTrack</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Python Django · ORM</span>
+                <span class="status-pill academic">Framework Lab</span>
+              </div>
+              <h3 class="project-name">Django Enterprise Web Application & ORM</h3>
+              <p class="project-summary">
+                A Python Django web system implementing Model-View-Template (MVT) design patterns, automated database schema migrations, CSRF protection, and administrative dashboard management.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Python Django</span>
+                <span class="tech-tag">Django ORM</span>
+                <span class="tech-tag">SQLite / PostgreSQL</span>
+                <span class="tech-tag">MVT Pattern</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('iptdjango')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('iptdjango')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 17. Student & Faculty Roster System -->
+          <article class="project-card" data-cat="dev">
+            <div class="card-banner g-17">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">📋</span>
+              <span class="banner-tag">Modern Web App</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Frontend Architecture · TypeScript</span>
+                <span class="status-pill academic">Academic Tool</span>
+              </div>
+              <h3 class="project-name">Academic Roster & Enrollment Management</h3>
+              <p class="project-summary">
+                A modern single-page academic roster portal designed for instructors to track student attendance records, section assignments, performance metrics, and automated course rosters.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">React / TypeScript</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">Oxlint Static Check</span>
+                <span class="tech-tag">Component UI</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('rosterapp')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('rosterapp')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 18. Novus Enterprise Data Architecture -->
+          <article class="project-card" data-cat="dev cloud">
+            <div class="card-banner g-18">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🏢</span>
+              <span class="banner-tag">Enterprise System</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Multi-Tenant Database Design</span>
+                <span class="status-pill academic">Database Project</span>
+              </div>
+              <h3 class="project-name">Novus Enterprise Portal & Database Architecture</h3>
+              <p class="project-summary">
+                An enterprise database and portal project featuring complex relational schema consolidation, multi-database dump orchestration, backup recovery protocols, and asset indexing.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">MySQL Dump</span>
+                <span class="tech-tag">Database Normalization</span>
+                <span class="tech-tag">Disaster Recovery</span>
+                <span class="tech-tag">Enterprise Schema</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('novusdb')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('novusdb')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 19. Modern Identity & Authentication with Clerk API -->
+          <article class="project-card" data-cat="dev cloud">
+            <div class="card-banner g-19">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🔐</span>
+              <span class="banner-tag">Auth Microservice</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">OAuth2 · Identity Management</span>
+                <span class="status-pill lab">Security Lab</span>
+              </div>
+              <h3 class="project-name">Secure Identity & Auth Architecture (Clerk SDK)</h3>
+              <p class="project-summary">
+                A state-of-the-art authentication gateway integrating Clerk SDK for passwordless logins, multi-factor authentication (MFA), role-based claims, and cryptographic JWT verification.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Clerk JavaScript SDK</span>
+                <span class="tech-tag">OAuth 2.0 / JWT</span>
+                <span class="tech-tag">Multi-Factor Auth</span>
+                <span class="tech-tag">Session Hardening</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('clerkauth')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('clerkauth')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- 20. Automated CI/CD Web Pipeline (GitHub Pages) -->
+          <article class="project-card" data-cat="qa cloud">
+            <div class="card-banner g-20">
+              <div class="banner-pattern"></div>
+              <span class="banner-icon">🚀</span>
+              <span class="banner-tag">DevOps & CI/CD</span>
+            </div>
+            <div class="card-content">
+              <div class="card-meta-top">
+                <span class="card-category">Continuous Deployment · Git</span>
+                <span class="status-pill">CI/CD Deployed</span>
+              </div>
+              <h3 class="project-name">Automated Web Pipeline & Static Cloud Hosting</h3>
+              <p class="project-summary">
+                An automated cloud deployment pipeline deploying web deliverables to GitHub Pages via Git hooks and CI actions, ensuring regression-free static distribution and continuous delivery.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">GitHub Actions CI/CD</span>
+                <span class="tech-tag">Git Version Control</span>
+                <span class="tech-tag">Static Cloud Edge</span>
+                <span class="tech-tag">Automated Builds</span>
+              </div>
+              <div class="card-footer">
+                <button class="btn-ai-log" onclick="openModal('githubcicd')">💬 AI Log</button>
+                <button class="btn-detail" onclick="openModal('githubcicd')">View Details ↗</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Competencies Section -->
+    <section id="skills">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Technical Toolkit</div>
+            <h2 class="section-title">Knowledge & Competencies.</h2>
+          </div>
+          <p class="section-subtitle">
+            Tools, programming languages, and distributed computing concepts demonstrated across all 20 projects in this portfolio.
+          </p>
+        </div>
+
+        <div class="skills-wrapper">
+          <div class="skill-box">
+            <div class="skill-icon">⚡</div>
+            <h3>Languages & Frameworks</h3>
+            <p>PHP (CLI/Web), Python, JavaScript (ES6+), TypeScript, Java, Django, React, Bootstrap 5, SQL</p>
+          </div>
+          <div class="skill-box">
+            <div class="skill-icon">☁️</div>
+            <h3>Cloud & Distributed Systems</h3>
+            <p>Amazon EC2, Amazon SQS, Redis In-Memory Caching, VPC Subnetting, CloudWatch, ALB, Linux Systemd</p>
+          </div>
+          <div class="skill-box">
+            <div class="skill-icon">🗄️</div>
+            <h3>Databases & CMS</h3>
+            <p>MySQL, Multi-database schemas, Strapi Headless CMS, phpMyAdmin, Redis Key-Value Store</p>
+          </div>
+          <div class="skill-box">
+            <div class="skill-icon">🔍</div>
+            <h3>Computer Vision & AI</h3>
+            <p>OpenCV image filtering, Tesseract OCR character extraction, prompt engineering, agentic workflows</p>
+          </div>
+          <div class="skill-box">
+            <div class="skill-icon">🎯</div>
+            <h3>Quality Assurance & Testing</h3>
+            <p>IEEE 829 test plans, test matrices, defect tracking, boundary value analysis, release verification</p>
+          </div>
+          <div class="skill-box">
+            <div class="skill-icon">🛠️</div>
+            <h3>DevOps & Identity</h3>
+            <p>Git, GitHub Actions CI/CD, Clerk Authentication, Composer, Postman, Mailtrap, XAMPP</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline / Learning Journey -->
+    <section id="journey">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Chronological Progress</div>
+            <h2 class="section-title">Academic Semester Timeline.</h2>
+          </div>
+          <p class="section-subtitle">
+            A milestone timeline detailing laboratory deliveries, research prototypes, and system evaluations conducted from September to November 2026.
+          </p>
+        </div>
+
+        <div class="timeline-container">
+          <div class="timeline-node">
+            <div class="node-date">September 2026</div>
+            <div class="node-card">
+              <h3>Enterprise Cloud Infrastructure Planning (SAM10)</h3>
+              <p>
+                Architected high-availability AWS cloud infrastructures featuring load-balanced EC2 instances, Auto Scaling, and multi-AZ relational databases for the SAM10 midterm project.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-node">
+            <div class="node-date">October 2026</div>
+            <div class="node-card">
+              <h3>Distributed Queues, In-Memory Caching & AutoTrace Parking</h3>
+              <p>
+                Implemented decoupled email dispatching using Amazon SQS and PHP. Configured in-memory Redis caching layers to mitigate database query load. Deployed Strapi and Apache on EC2 instances, and developed the AutoTrace Monthly Parking Membership module.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-node">
+            <div class="node-date">November 2026</div>
+            <div class="node-card">
+              <h3>Quality Assurance Suites & PDC06 Portfolio Finalization</h3>
+              <p>
+                Produced comprehensive IEEE-standard SQA test documentation for AutoTrace (ITE40) and verified release candidates for ShopSmart. Synthesized all 20 coursework milestones into this unified PDC06 portfolio.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PDC06 Subject Scope & Context Banner -->
+    <section id="course-context">
+      <div class="wrap">
+        <div class="academic-banner">
+          <div class="academic-banner-content">
+            <div class="section-kicker">Course Declaration</div>
+            <h2>PDC06 Academic Coursework Showcase</h2>
+            <p>
+              This website serves as a consolidated portfolio submission for the subject <strong>PDC06</strong> at <strong>Angeles University Foundation</strong>. All 20 projects, laboratory activities, and systems documented herein represent academic study, individual development, and coursework execution.
+            </p>
+          </div>
+          <div class="academic-actions">
+            <a class="btn-primary" href="#home">Back to Top ↑</a>
+            <a class="btn-secondary" href="https://github.com/joshmanalang123s-boop" target="_blank" rel="noreferrer">
+              <span>GitHub Repositories</span> ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Project Detail Modal Structure with AI Conversation View -->
+  <div class="modal-overlay" id="projectModal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <h3 id="modalTitle">Project Title</h3>
+          <p id="modalCategory">Category & Subject Focus</p>
+        </div>
+        <button class="modal-close" onclick="closeModal()" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Injected dynamically via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap footer-inner">
+      <div>
+        <p><strong>Josh Manalang</strong> — IT Student Portfolio (20 Projects with AI Dialogue Evidence)</p>
+        <p class="footer-academic">Academic Submission for Subject: PDC06 · Angeles University Foundation</p>
+      </div>
+      <div>
+        <p>© <span id="year"></span> Josh Manalang. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Filtering & Modal Logic with AI Dialogue Logs -->
+  <script>
+    // Detailed Knowledge Base: Specifications + AI Collaborative Transcripts for All 20 Projects
+    const projectDetails = {
+      autotrace: {
+        title: "AutoTrace: Smart Parking Management System",
+        category: "Capstone & Thesis Integration · Computer Vision & Web Systems",
+        subject: "Capstone Project / Advanced Systems Development",
+        overview: "AutoTrace is an intelligent parking automation system engineered to eliminate manual ticketing, reduce parking bottleneck delays, and enhance vehicle security. It leverages computer vision for automated license plate extraction upon entry and exit, paired with a web administrative backend.",
+        architecture: "The camera feed is processed via image enhancement and adaptive binarization before passing bounding boxes into character segmentation and OCR. The extracted plate string queries a MySQL relational database to record timestamped entry, verify existing monthly parking memberships, and calculate tiered parking tariffs at exit.",
+        features: [
+          "Automated license plate number extraction using computer vision algorithms.",
+          "Real-time visual monitoring of parking slot availability and lane occupancy.",
+          "Monthly Membership Module allowing pre-registered vehicles seamless entry without ticket dispensing.",
+          "Automated exit billing computation and thermal receipt printing format.",
+          "Role-based administrative dashboards for operators, cashiers, and supervisors."
+        ],
+        stack: "Python, OpenCV, Tesseract OCR, PHP, MySQL, JavaScript, HTML5/CSS3",
+        aiLog: {
+          prompt: "Improve the existing SABINO/AutoTrace Parking Management System UI using Impeccable design principles. Also, my system is slow to load, how do I optimize it? Can you help me implement the Monthly Parking Membership Feature and fix the print receipt format when ending a session?",
+          aiResponse: "1. UI Optimization: Strip redundant borders, implement clear typography hierarchy, and remove intrusive elements like duplicate logouts.\n2. Query Performance: Add indexed lookups on `plate_number` and `entry_time` in MySQL to prevent full-table scans upon vehicle check-in.\n3. Monthly Membership: Implemented a membership verification check before ticket creation. If a vehicle has an active subscription, it logs entry directly without calculating standard hourly tariffs.\n4. Thermal Receipt: Formatted CSS `@media print` rules with 80mm roll width, monospaced typography, and barcode/QR verification tokens.",
+          learningOutcome: "I analyzed the AI's CSS print media rules and MySQL indexing suggestions. I applied the index to `plate_number`, reducing search latency from ~420ms to 18ms, and built the membership subscription workflow in PHP."
+        }
+      },
+      brims: {
+        title: "Barangay Resident Information Management System (BRIMS)",
+        category: "Web Application · Local Governance & Community Database",
+        subject: "Database Management & Information Systems",
+        overview: "A specialized local government web portal engineered to digitize community records, streamline resident profiling, and automate clearance certifications for barangay administrative personnel.",
+        architecture: "Client-server architecture built on PHP and MySQL with normalized relational tables. Employs prepared statements to prevent SQL injection and password hashing for secure authentication across barangay staff roles.",
+        features: [
+          "Comprehensive resident registry with demographic details, household relationships, and residency status.",
+          "Automated generation and tracking of Barangay Clearance, Certificate of Indigency, and Residency.",
+          "Incident blotter logging module with case tracking and resolution records.",
+          "Data export and population statistical summaries for municipal reporting."
+        ],
+        stack: "PHP, MySQL Relational Database, Bootstrap 5, JavaScript, Apache",
+        aiLog: {
+          prompt: "How do I structure a Barangay Resident Information Management System database in MySQL to handle resident relationships, blotter reports, and automatic clearance issuance without duplicate data?",
+          aiResponse: "Recommended 3NF database schema:\n- `residents` table with unique national/resident ID.\n- `clearance_requests` linked via `resident_id` foreign key with status enums ('pending', 'issued', 'rejected').\n- `blotter_records` with complainant and respondent resident foreign keys.\n- Use prepared PDO statements in PHP for all insert/update operations to prevent SQL injection.",
+          learningOutcome: "I adopted the recommended foreign key constraints and implemented PDO prepared statements across all resident registration and clearance issuance forms, ensuring relational integrity."
+        }
+      },
+      fakebuster: {
+        title: "Fake Buster: Misinformation & Fake News Detection System",
+        category: "AI & NLP · Content Verification & Linguistic Analysis",
+        subject: "Artificial Intelligence & Natural Language Processing",
+        overview: "Fake Buster is an automated text credibility analysis system designed to evaluate digital news articles, social media claims, and user-submitted text for signs of misinformation, sensationalism, and hyperbole.",
+        architecture: "Input text is cleaned and tokenized using NLP pipelines. The system computes stylistic markers, sentiment polarity, clickbait phrasing, and cross-references extracted claims against verified knowledge bases to generate an objective credibility score.",
+        features: [
+          "Real-time text credibility scoring with visual confidence percentages.",
+          "Extraction and highlighting of sensationalized or clickbait emotional keywords.",
+          "Domain and publisher reputation lookup against curated verification registries.",
+          "Transparent explanation breakdown showing why an article was flagged."
+        ],
+        stack: "Python, NLTK, Scikit-Learn, Web Scraping, RESTful API, HTML/CSS",
+        aiLog: {
+          prompt: "What feature extraction techniques work best in Python NLP for detecting exaggerated or fake news headlines versus verified journalistic articles?",
+          aiResponse: "Suggested a hybrid feature set:\n1. Lexical features: Ratio of sensationalized adjectives/adverbs and all-caps words.\n2. Sentiment Extremity: High positive/negative polarity scores using VADER or TextBlob.\n3. Punctuation density: Overuse of '!' or '???'.\n4. TF-IDF vectorization paired with a Logistic Regression or Multinomial Naive Bayes classifier trained on factual vs. misleading corpora.",
+          learningOutcome: "I built the Python feature extractor calculating punctuation density and sentiment extremity, combining it with TF-IDF vectors to output an explainable credibility percentage to the user."
+        }
+      },
+      shopsmart: {
+        title: "ShopSmart: E-Commerce Platform & QA Verification Suite",
+        category: "Full-Stack Web & Software Quality Assurance Verification",
+        subject: "Software Engineering & Software Quality Assurance",
+        overview: "A modular, responsive e-commerce web application featuring a complete customer purchase journey, serving as the live candidate system for end-to-end software quality assurance and release verification testing.",
+        architecture: "Front-end interface communicating with local state management and mock payment workflows, coupled with a full QA test harness covering functional verification, boundary checks, and release candidate validation.",
+        features: [
+          "Product catalogue with live search, categorization, and filter controls.",
+          "Interactive shopping cart with real-time subtotal, discount, and tax calculations.",
+          "Checkout validation with strict input sanitation and order confirmation simulation.",
+          "Formally verified through comprehensive QA test suites, bug tracking, and release sign-off."
+        ],
+        stack: "JavaScript (ES6), HTML5, CSS3, Git, QA Test Matrices, Issue Tracking",
+        aiLog: {
+          prompt: "We need a local release candidate that passes all project checks and customer journeys for ShopSmart. Can you help verify test cases, document the checkout bug where discount codes fail on edge boundaries, and format the release candidate report?",
+          aiResponse: "1. Edge Boundary Analysis: Identified bug where discount coupon string was evaluated before trimming whitespace and converting to uppercase.\n2. Fix: Sanitized coupon input with `.trim().toUpperCase()` before comparing against valid promo keys.\n3. Release Candidate Sign-Off Matrix: Structured IEEE-compliant verification checklist covering Product Browse, Cart Calculation, Checkout Validation, and State Persistence.",
+          learningOutcome: "I patched the discount sanitization logic in JavaScript, retested the customer journey, and documented before/after screenshot evidence in the final QA release candidate report."
+        }
+      },
+      ocrthesis: {
+        title: "OCR License Plate Extraction Pipeline",
+        category: "Thesis Investigation · Image Processing & Character Recognition",
+        subject: "Undergraduate Thesis Research",
+        overview: "A dedicated academic research and software pipeline investigating the limits and optimization techniques for optical character recognition applied to vehicle license plates in non-ideal Philippine environmental conditions.",
+        architecture: "The pipeline consists of four sequential stages: (1) Grayscale conversion & bilateral noise reduction, (2) Morphological edge detection & contour localization, (3) Perspective rectification & adaptive thresholding, and (4) Character segmentation and recognition.",
+        features: [
+          "Custom image pre-processing filters tailored for night-time glare and shadow elimination.",
+          "Aspect-ratio filtering for accurate rectangular plate region isolation.",
+          "Comparative benchmark across character segmentation heuristics under camera tilt.",
+          "Accuracy validation dataset demonstrating significant improvements over raw OCR."
+        ],
+        stack: "Python, OpenCV, NumPy, Tesseract OCR, Matplotlib",
+        aiLog: {
+          prompt: "How can I improve OpenCV preprocessing to segment vehicle license plate characters when there is strong headlights glare and uneven shadowing?",
+          aiResponse: "Recommended an adaptive morphological pipeline:\n1. Apply CLAHE (Contrast Limited Adaptive Histogram Equalization) on the luminance (L) channel in LAB color space.\n2. Use a Bilateral Filter to smooth noise while preserving character edges.\n3. Apply Otsu's adaptive thresholding combined with Top-Hat morphological transform to isolate bright characters on dark backgrounds.",
+          learningOutcome: "Implemented CLAHE on the L-channel in Python, which boosted OCR character extraction accuracy from 64% to 89% in night-time parking camera captures."
+        }
+      },
+      studyagent: {
+        title: "Academic Workspace Study Agent",
+        category: "Agentic AI · Automated Document Ingestion & Study Synthesis",
+        subject: "AI Systems & Workflow Automation",
+        overview: "An agentic multi-stage pipeline designed to transform raw academic materials (PDF lecture slides, syllabi, reading texts) into high-retention study resources with strict verification and human-in-the-loop oversight.",
+        architecture: "Constructed with discrete modular prompts and safety gates: Document Ingestion → Core Concept Extraction → Question & Answer Generation → Answer Key Verification → Markdown Synthesis.",
+        features: [
+          "Automated conversion of complex syllabus topics into concise summary bullet points.",
+          "Generation of multiple-choice, identification, and conceptual review questions.",
+          "Separated answer key generation with rationale explanations.",
+          "Strict file safety and sandboxed human approval gates prior to writing outputs."
+        ],
+        stack: "LLM Agentic Prompts, Markdown Parsing, Python, Document Processing",
+        aiLog: {
+          prompt: "Design an academic study agent workflow that takes lecture slides, extracts key competencies, generates practice test questions, but requires student approval before writing output files to disk.",
+          aiResponse: "Architected a 4-phase sequential workflow:\n1. Ingestion & Tokenizer: Parses PDF slides into categorized topic chunks.\n2. Summarizer Agent: Synthesizes core concepts into markdown bullet points.\n3. Examination Agent: Formulates 10 multiple-choice and 5 conceptual questions with detached answer keys.\n4. Human Approval Gate: Presents generated content in preview mode; only writes to workspace upon user confirmation.",
+          learningOutcome: "I wrote the Python CLI script orchestrating this multi-agent pipeline and enforced the human-in-the-loop gate, preventing automated accidental overwrites of existing study notes."
+        }
+      },
+      awsinfra: {
+        title: "AWS Multi-Tier Infrastructure Design",
+        category: "Cloud Architecture · High Availability & Scalability",
+        subject: "SAM10 (Cloud Computing Midterm Project)",
+        overview: "A comprehensive enterprise cloud architecture proposal designed for fault-tolerant, horizontally scalable web operations adhering to the AWS Well-Architected Framework.",
+        architecture: "Multi-tier design configured within a custom VPC spanning two Availability Zones. Public subnets host redundant NAT Gateways and an Application Load Balancer (ALB). Private application subnets host EC2 instances in an Auto Scaling Group, while isolated private database subnets host Amazon RDS MySQL in Multi-AZ configuration.",
+        features: [
+          "Isolated network design utilizing public, private, and database subnets.",
+          "Application Load Balancer distributing HTTP/HTTPS traffic dynamically.",
+          "EC2 Auto Scaling policies triggering on CPU utilization thresholds.",
+          "Amazon RDS Multi-AZ synchronous replication ensuring zero data loss failovers.",
+          "Tight security group boundaries and IAM least-privilege role configurations."
+        ],
+        stack: "AWS VPC, EC2, ALB, Auto Scaling, RDS Multi-AZ, IAM, CloudWatch",
+        aiLog: {
+          prompt: "Create a 10-15 minute presentation structure for SAM10 explaining why an enterprise AWS deployment should separate public subnets, application subnets, and RDS database subnets across two Availability Zones.",
+          aiResponse: "Structured presentation outline:\n- Slide 1-3: Problem Statement (Single-point of failure & blast radius in monolithic networks).\n- Slide 4-7: Architectural Diagram (VPC CIDR /16, 2 Public subnets for ALB/NAT, 2 Private for EC2 Auto Scaling, 2 Isolated for RDS Multi-AZ).\n- Slide 8-10: High Availability & Security (Zero internet routes to database subnets, Security Group chaining).\n- Slide 11-13: Cost & Operational Excellence (CloudWatch alerts and target-tracking scaling).",
+          learningOutcome: "I utilized this architecture outline to deliver our SAM10 midterm defense, explaining security group chaining from ALB → EC2 → RDS to our panel."
+        }
+      },
+      ec2booking: {
+        title: "EC2-Hosted Pet Grooming Booking Platform",
+        category: "Cloud Deployment · Linux Administration & Headless CMS",
+        subject: "SAM10 (Cloud Computing Laboratory Activity)",
+        overview: "A complete laboratory deployment exercise configuring a cloud-hosted booking and content management platform on an Amazon EC2 Linux instance with production daemon management.",
+        architecture: "Runs an Amazon Linux EC2 virtual machine hosting an Apache/PHP web front-end coupled with a Strapi Headless CMS backend. Strapi is managed via custom systemd service daemons to guarantee auto-restart on crashes or instance reboots.",
+        features: [
+          "Custom Strapi CMS content architecture modeling services, appointment slots, and customer bookings.",
+          "Systemd daemon configuration (`systemctl`) managing Node.js Strapi processes.",
+          "Inbound Security Group hardening restricting SSH access and opening ports 80/1337.",
+          "Amazon CloudWatch alarm integration monitoring CPU and memory usage."
+        ],
+        stack: "Amazon EC2, Strapi CMS, Apache, PHP, Linux Systemd, CloudWatch",
+        aiLog: {
+          prompt: "How do I create a Linux systemd service unit file on Amazon Linux EC2 so that my Strapi Node.js application starts automatically on boot and restarts if it crashes?",
+          aiResponse: "Provided `strapi.service` file:\n```ini\n[Unit]\nDescription=Strapi Headless CMS\nAfter=network.target\n\n[Service]\nType=simple\nUser=ec2-user\nWorkingDirectory=/var/www/strapi\nExecStart=/usr/bin/npm run start\nRestart=on-failure\nEnvironment=NODE_ENV=production\n\n[Install]\nWantedBy=multi-user.target\n```\nEnable via `sudo systemctl daemon-reload && sudo systemctl enable --now strapi`.",
+          learningOutcome: "I created and tested the systemd unit file on my AWS EC2 instance. After simulating an instance reboot, verified that Strapi automatically resumed on port 1337 without manual SSH intervention."
+        }
+      },
+      sqscampaign: {
+        title: "Hybrid Campaign Message Queue System",
+        category: "Distributed Queuing · AWS SQS & Asynchronous Dispatch",
+        subject: "SAM10 (Cloud Computing Laboratory Activity)",
+        overview: "A distributed system laboratory activity demonstrating decoupled event-driven architecture using Amazon Simple Queue Service (SQS) to process bulk promotional email dispatches asynchronously.",
+        architecture: "Web trigger events act as SQS message producers, formatting customer payloads into JSON and sending them to an SQS FIFO/Standard queue. A decoupled PHP CLI consumer polling daemon pulls batches of messages, enforces rate limits, and dispatches test emails through Mailtrap SMTP.",
+        features: [
+          "Asynchronous decoupling: Web UI responds immediately while SQS handles queue buffers.",
+          "Robust PHP queue consumer daemon with graceful shutdown and error retry logic.",
+          "PHP extension troubleshooting (`ext-filter` and curl) for AWS SDK compliance.",
+          "Full email deliverability validation and sandbox inspection via Mailtrap."
+        ],
+        stack: "AWS SQS, PHP CLI, AWS SDK for PHP, Mailtrap SMTP, JSON Payload Queue",
+        aiLog: {
+          prompt: "When running our PHP SQS consumer on Windows/XAMPP, Composer warns: 'ext-filter is required to use the boolean validator'. Also how should the long-polling loop be structured to avoid high AWS SQS bill charges?",
+          aiResponse: "1. Extension Fix: In `php.ini`, uncomment `extension=filter` and `extension=curl`, then run `php -m` to verify.\n2. Cost-Effective Long Polling: Configure `WaitTimeSeconds => 20` in the `receiveMessage` call. This enables Amazon SQS long-polling, reducing empty API query counts and dramatically cutting costs compared to 0-second busy loops.",
+          learningOutcome: "Enabled `ext-filter` in XAMPP php.ini to resolve the Composer crash, and implemented `WaitTimeSeconds => 20` long-polling in our CLI worker, successfully receiving and delivering queued Mailtrap emails."
+        }
+      },
+      ite40qa: {
+        title: "ITE40 AutoTrace Software Quality Suite",
+        category: "Software Quality Assurance · IEEE Test Documentation",
+        subject: "ITE40 (Software Quality Assurance Final Coursework)",
+        overview: "A formal, exhaustive software testing and quality assurance documentation package created for the AutoTrace Smart Parking System, demonstrating mastery of the full testing lifecycle.",
+        architecture: "Organized in compliance with IEEE software testing standards, encompassing Test Plans, Test Case Matrices, Traceability Matrices, Bug Reports, and Test Summary deliverables.",
+        features: [
+          "Detailed functional, UI, and boundary value test cases across all modules.",
+          "Defect severity and priority categorization with reproducible step-by-step logs.",
+          "Comprehensive screenshot evidence repositories for passed and failed test executions.",
+          "Final Quality Evaluation Report with actionable remediation recommendations."
+        ],
+        stack: "IEEE 829 Standards, Functional Testing, Defect Lifecycle, Test Matrices",
+        aiLog: {
+          prompt: "Help me structure the COMPLETE AUTOTRACE ITE40 Software Quality Assurance final documentation following IEEE 829 format, including test cases, defect severity levels, and screenshot evidence sections.",
+          aiResponse: "Provided formal IEEE 829 SQA Structure:\n1. Role & Responsibility Matrix.\n2. Master Test Plan (Scope, Environment, Entry/Exit Criteria).\n3. Test Case Specification Table (Test ID, Module, Precondition, Input, Expected Result, Actual Result, Status).\n4. Defect Incident Log (Critical, Major, Minor classification with reproducible steps).\n5. Test Execution Evidence Appendix with screenshot placeholders.",
+          learningOutcome: "I filled out the entire IEEE test suite covering 35 test cases across AutoTrace parking entry, membership billing, and receipt printing, compiling it into our final ITE40 project submission."
+        }
+      },
+      grapemedia: {
+        title: "Interactive Educational Infographic: Grape King",
+        category: "Educational Media · Visual Communication & Responsive UI",
+        subject: "Academic Digital Media & Educational Technology",
+        overview: "A digital educational tribute and interactive infographic detailing the life, agricultural breakthroughs, and legacy of Avelino 'Abe' Lomboy, recognized as the 'Grape King of the Philippines.'",
+        architecture: "Constructed with clean semantic HTML5, CSS Grid, and custom SVG visual accents. Optimized for high-dpi rendering, smooth mobile viewing, and print-ready stylesheet output for PDF conversion.",
+        features: [
+          "Structured timeline chronicling the pioneering of commercial grape farming in La Union.",
+          "Key innovation cards highlighting propagation techniques and agri-tourism growth.",
+          "High-contrast, elegant typography built with accessibility principles.",
+          "Cross-platform responsive design supporting both digital screens and printable exports."
+        ],
+        stack: "HTML5, CSS Grid / Flexbox, SVG Graphics, Print Stylesheet / PDF",
+        aiLog: {
+          prompt: "Create a visually appealing educational poster about Avelino 'Abe' Lomboy – The Grape King. Make it creative, modern, and ensure it prints cleanly to PDF without breaking across page margins.",
+          aiResponse: "Designed high-contrast responsive layout using CSS Grid and CSS Paged Media `@page { size: A4 portrait; margin: 10mm; }` with `page-break-inside: avoid` on timeline and innovation cards to guarantee flawless PDF exports.",
+          learningOutcome: "I adjusted the color palette to rich agricultural tones and used the suggested CSS print styles to generate a high-resolution, print-ready PDF poster for our academic media activity."
+        }
+      },
+      payrollapi: {
+        title: "SAM10 Payroll RESTful Microservice API",
+        category: "Backend Engineering · Cloud Microservices",
+        subject: "SAM10 (Cloud Computing & Web Services Lab)",
+        overview: "A modular, decoupled PHP RESTful API designed to automate gross-to-net salary calculations, statutory tax deductions (SSS, PhilHealth, Pag-IBIG), and digital invoice payload generation for enterprise HR systems.",
+        architecture: "Structured using Composer PSR-4 autoloading. Endpoints receive structured JSON payloads, pass them through input validator middleware, compute compensation algorithms, and output formatted JSON payloads with standard HTTP status codes.",
+        features: [
+          "RESTful endpoint routing supporting GET, POST, and PUT actions for employee wage profiles.",
+          "Algorithmic deduction logic adhering to updated Philippine progressive tax tables.",
+          "JSON schema validation and standardized error response payloads.",
+          "CORS-compliant architecture ready for decoupled front-end and cloud consumption."
+        ],
+        stack: "PHP 8.x, Composer, RESTful Architecture, JSON, Apache .htaccess",
+        aiLog: {
+          prompt: "How can I structure a clean RESTful router in PHP with Composer autoloading so that requests like POST /api/payroll/calculate execute dedicated controller methods without large switch statements?",
+          aiResponse: "Recommended a lightweight routing pattern using regex and PSR-4 autoloading in `composer.json`:\n```json\n\"autoload\": { \"psr-4\": { \"App\\\\\": \"src/\" } }\n```\nController routes matched via `preg_match('#^/api/payroll/calculate$#', $uri)` instantiate `PayrollController->calculate()`, ensuring single responsibility.",
+          learningOutcome: "I configured Composer PSR-4 autoloading and separated the salary calculation formulas into clean service classes, making the payroll API modular and easy to unit test."
+        }
+      },
+      redisscheduler: {
+        title: "High-Performance Scheduler with Redis In-Memory Layer",
+        category: "Distributed Caching · Performance Optimization",
+        subject: "Distributed Systems & Database Performance",
+        overview: "An enterprise event and order scheduler engineered with an in-memory Redis caching proxy layer to drastically reduce latency and protect relational database engines from heavy repeated read operations.",
+        architecture: "Implements the Cache-Aside pattern: Incoming read requests first check Redis key hashes. On a cache hit, data is served in sub-milliseconds; on a cache miss, data is queried from MySQL, stored in Redis with an intelligent Time-To-Live (TTL), and returned.",
+        features: [
+          "Sub-millisecond query retrieval via Redis in-memory key-value storage.",
+          "Cache-Aside pattern preventing expensive repeated MySQL relational joins.",
+          "Intelligent TTL expiration and cache invalidation upon record updates.",
+          "Benchmarked latency reduction under concurrent load tests."
+        ],
+        stack: "Redis, PHP Predis, MySQL, Distributed Caching, TTL Management",
+        aiLog: {
+          prompt: "How do I implement the Cache-Aside pattern in PHP with Predis so that calendar appointments are read from Redis first, and only hit MySQL if the key has expired?",
+          aiResponse: "Provided Cache-Aside implementation:\n```php\n$cacheKey = \"orders:user:\".intval($userId);\n$cachedData = $redis->get($cacheKey);\nif ($cachedData) { return json_decode($cachedData, true); }\n$data = fetchFromMySQL($userId);\n$redis->setex($cacheKey, 300, json_encode($data)); // 5 min TTL\nreturn $data;\n```",
+          learningOutcome: "Integrated the Predis client with our calendar orders script. Benchmarked response times dropping from 85ms on direct MySQL queries to under 4ms on Redis cache hits."
+        }
+      },
+      quickcart: {
+        title: "QuickCart: Point-of-Sale & Storefront Engine",
+        category: "Full-Stack Development · Reactive State Architecture",
+        subject: "PDC50 (Advanced Client-Server JavaScript Architecture)",
+        overview: "A decoupled shopping and Point-of-Sale web engine showcasing reactive front-end state management, live cart synchronization, and transaction state machines.",
+        architecture: "Clean client-server separation where client JavaScript communicates with backend endpoints through asynchronous fetch pipelines. Employs local state management for instant UI reactivity and server verification for transactional accuracy.",
+        features: [
+          "Reactive client-side shopping cart with instant subtotal and tax computations.",
+          "Asynchronous inventory checks preventing over-ordering of out-of-stock items.",
+          "POS checkout state machine supporting cash, card, and digital payment mocks.",
+          "Session persistence across browser refreshes using web storage APIs."
+        ],
+        stack: "JavaScript ES6+, RESTful APIs, Session Storage, Responsive CSS",
+        aiLog: {
+          prompt: "Help me manage state in a pure JavaScript shopping cart so that modifying item quantity recalculates tax and subtotal reactively without having to re-render the entire catalog DOM.",
+          aiResponse: "Recommended an Observer / Centralized State Pattern in Vanilla JS:\nMaintain a single `state = { cart: [] }` object. Any quantity update calls a pure `renderCart()` and `calculateTotals()` function that modifies only the designated summary DOM nodes rather than reloading the item grid.",
+          learningOutcome: "I adopted the central state pattern in QuickCart, creating smooth quantity increment buttons and instant total calculations without UI flickering."
+        }
+      },
+      siamiddleware: {
+        title: "Enterprise Middleware & Service Integration",
+        category: "Systems Integration & Architecture · Modular Controllers",
+        subject: "SIA (Systems Integration and Architecture - Lab 7)",
+        overview: "A robust enterprise middleware and controller architecture designed to demonstrate clean architectural boundaries, modular service decoupling, and unified data integration pipelines.",
+        architecture: "Adheres to enterprise Model-View-Controller (MVC) principles. Incorporates middleware request interception, centralized configuration registries, controller dispatchers, and database abstraction wrappers.",
+        features: [
+          "Centralized configuration registry (`config.php`) managing environment variables and database connections.",
+          "Modular controller architecture decoupling business logic from request handling.",
+          "Middleware pipeline for request sanitation and session verification.",
+          "Prepared statement data access layers ensuring resilience and data integrity."
+        ],
+        stack: "PHP, Composer Autoloading, MVC Design Pattern, Middleware, MySQL",
+        aiLog: {
+          prompt: "How do enterprise systems implement middleware pipelines in PHP to intercept unauthenticated requests before they hit controllers in SIA Lab 7?",
+          aiResponse: "Demonstrated the Middleware Stack pattern: A callable chain `($request, $next)` that verifies authentication tokens or sessions. If invalid, it aborts with HTTP 401; otherwise, it passes execution forward to `$next($request)` which invokes the target controller.",
+          learningOutcome: "I built an auth middleware layer in `sia-lab7` protecting administrative API endpoints, verifying that non-logged-in requests get denied before executing database queries."
+        }
+      },
+      iptdjango: {
+        title: "Django Enterprise Web Application & ORM",
+        category: "Full-Stack Frameworks · Python Web Engineering",
+        subject: "IPT (Integrative Programming and Technologies FastTrack)",
+        overview: "A comprehensive web portal developed with Python and the Django framework, demonstrating rapid application development, relational Object-Relational Mapping (ORM), and built-in security mechanics.",
+        architecture: "Employs Django's Model-View-Template (MVT) architecture. Database models translate seamlessly into SQL schemas via Django Migrations, coupled with robust URL routing and template inheritance.",
+        features: [
+          "Relational database modeling using Django ORM without raw SQL vulnerabilities.",
+          "Built-in security hardening: CSRF verification, SQL injection protection, and clickjacking defense.",
+          "Custom administrative portal with role-based permissions and audit logs.",
+          "Modular Django app structure enabling easy component reuse across systems."
+        ],
+        stack: "Python, Django Framework, SQLite/PostgreSQL, MVT Pattern, HTML/CSS",
+        aiLog: {
+          prompt: "What is the proper Django workflow to establish a One-to-Many relationship between Course and Student models, run migrations, and register them in Django Admin?",
+          aiResponse: "Provided model definitions:\n```python\nclass Course(models.Model):\n    title = models.CharField(max_length=100)\n\nclass Student(models.Model):\n    name = models.CharField(max_length=100)\n    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='students')\n```\nRun `python manage.py makemigrations` and `migrate`, then register with `admin.site.register(Student)`.",
+          learningOutcome: "I wrote the models in `main_project`, migrated the database, and customized the Django Admin interface to filter students by enrolled course."
+        }
+      },
+      rosterapp: {
+        title: "Academic Roster & Enrollment Management",
+        category: "Modern Frontend · Component Architecture",
+        subject: "Web Development & Software Engineering",
+        overview: "A single-page application built to streamline student registration, section assignment, attendance tracking, and academic record generation for educational institutions.",
+        architecture: "Component-driven single page application (SPA) with typed data interfaces, strict static linting via Oxlint, and local data persistence for responsive instructor workflows.",
+        features: [
+          "Dynamic student search and section filtering with immediate DOM updates.",
+          "Attendance toggle matrix computing participation percentages in real-time.",
+          "Strict static code analysis and linting (`.oxlintrc.json`) maintaining code health.",
+          "Responsive, accessible data grid supporting fast keyboard data entry."
+        ],
+        stack: "React / JavaScript, TypeScript Interfaces, Node.js, Oxlint, CSS Grid",
+        aiLog: {
+          prompt: "How do I configure Oxlint (`.oxlintrc.json`) in our React/TypeScript roster application to enforce type safety and catch unused variables in component props?",
+          aiResponse: "Provided `.oxlintrc.json` rules configuration enabling `@typescript-eslint/no-unused-vars` and `react/jsx-key` rules, explaining how Oxlint runs significantly faster than ESLint while maintaining strict frontend quality.",
+          learningOutcome: "Configured Oxlint in the project, resolved 6 unused prop warnings in our student attendance components, and verified clean terminal linting passes."
+        }
+      },
+      novusdb: {
+        title: "Novus Enterprise Portal & Database Architecture",
+        category: "Database Systems · Schema Normalization & Backups",
+        subject: "Advanced Database Management Systems",
+        overview: "An enterprise database management project focusing on high-volume transactional schemas, automated database backups, disaster recovery dumps, and normalized data models.",
+        architecture: "Multi-table relational schema designed up to 3rd Normal Form (3NF). Implements comprehensive database dump procedures (`all_databases_dump.sql`) and foreign key constraints for transactional consistency.",
+        features: [
+          "Consolidated enterprise database schema modeling multi-department operations.",
+          "Automated backup and point-in-time recovery SQL dump scripts.",
+          "Referential integrity constraints eliminating orphan records.",
+          "Optimized relational indexing reducing query scanning overhead."
+        ],
+        stack: "MySQL, Relational Schema Normalization (3NF), SQL Dump Scripts, phpMyAdmin",
+        aiLog: {
+          prompt: "How do I write an automated Windows batch / PowerShell script to create daily compressed mysqldump backups of all our project databases with timestamps?",
+          aiResponse: "Provided PowerShell backup automation:\n```powershell\n$date = Get-Date -Format 'yyyy-MM-dd_HH-mm'\nmysqldump -u root --all-databases > \"all_databases_dump_$date.sql\"\n```\nAdvised on `--single-transaction` flag to avoid table locking in production InnoDB environments.",
+          learningOutcome: "I implemented the backup script with `--single-transaction` in `Novus-Project-Page`, creating timestamped disaster recovery dumps without stalling database writes."
+        }
+      },
+      clerkauth: {
+        title: "Secure Identity & Auth Architecture (Clerk SDK)",
+        category: "Security & Cloud Identity · Authentication Gateway",
+        subject: "Platform Technologies & Security Lab",
+        overview: "An enterprise-grade authentication integration utilizing Clerk SDK to implement passwordless login, social OAuth providers, multi-factor authentication (MFA), and secure session tokens.",
+        architecture: "Front-end JavaScript interacts with Clerk's cloud identity provider. On authentication, an encrypted JWT token is issued, carrying signed user claims and session expirations verified on subsequent API calls.",
+        features: [
+          "Passwordless authentication with magic links and biometric passkeys.",
+          "Social OAuth 2.0 integration (Google, GitHub) with instant account linking.",
+          "Cryptographically signed JWT session management preventing token replay attacks.",
+          "Self-service user profile portal with active session revocation."
+        ],
+        stack: "Clerk JavaScript SDK, OAuth 2.0, JWT Tokens, HTTPS, Multi-Factor Auth",
+        aiLog: {
+          prompt: "How does the Clerk JavaScript SDK handle token refresh and protect protected frontend routes from unauthorized access?",
+          aiResponse: "Explained Clerk's session lifecycle: Clerk automatically rotates short-lived JWTs (typically 60s) in the background. Use `clerk.load()` and wrap protected view elements with `if (!clerk.user) { clerk.openSignIn(); }` to enforce authentication before rendering sensitive data.",
+          learningOutcome: "Integrated the Clerk SDK into our project, tested Google OAuth login, and verified that unauthorized users are redirected to the secure sign-in widget."
+        }
+      },
+      githubcicd: {
+        title: "Automated Web Pipeline & Static Cloud Hosting",
+        category: "DevOps & Continuous Delivery · Cloud Edge Hosting",
+        subject: "LAB6 / Software Engineering & Deployment",
+        overview: "A modern continuous integration and deployment (CI/CD) pipeline hosting production web deliverables on GitHub Pages with automated build verification and edge CDN distribution.",
+        architecture: "Source code repository configured with automated Git deployment workflows. Every pushed commit triggers static validation and deploys assets across global CDN edge nodes.",
+        features: [
+          "Automated continuous delivery: commits directly trigger edge CDN deployments.",
+          "Version-controlled release tags enabling instant rollback on breaking changes.",
+          "Global SSL/TLS encryption and HTTP/2 performance optimization.",
+          "Zero-downtime static asset updates with CDN caching headers."
+        ],
+        stack: "Git, GitHub Pages, CI/CD Workflows, CDN Edge Distribution, HTML5/CSS3",
+        aiLog: {
+          prompt: "How do I configure a GitHub Actions workflow (`deploy.yml`) to automatically deploy our web application to GitHub Pages whenever we push changes to the main branch?",
+          aiResponse: "Provided `.github/workflows/deploy.yml` with `actions/deploy-pages@v4`, configuring `permissions: pages: write; id-token: write` and setting the artifact publishing directory to the repository root.",
+          learningOutcome: "Created the workflow file in our GitHub repository (`LAB6.github.io`). Pushed a test commit and confirmed GitHub Actions built and deployed the live page within 40 seconds."
+        }
+      }
+    };
+
+    // Modal Display with AI Conversation Log
+    function openModal(projectId) {
+      const data = projectDetails[projectId];
+      if (!data) return;
+
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalCategory').textContent = `${data.category} • ${data.subject}`;
+      
+      const featuresHtml = data.features.map(f => `<li>${f}</li>`).join('');
+
+      document.getElementById('modalBody').innerHTML = `
+        <!-- AI Collaborative Dialogue Box -->
+        <div class="ai-chat-box">
+          <div class="ai-chat-header">
+            <span class="ai-chat-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM4 11v2a8 8 0 0 0 16 0v-2"/><rect x="2" y="9" width="20" height="8" rx="4"/></svg>
+              AI Collaborative Prompt Log
+            </span>
+            <span class="ai-transparency-pill">PDC06 Evidence</span>
+          </div>
+          <div class="ai-chat-body">
+            <!-- Student Prompt -->
+            <div class="chat-bubble">
+              <div class="bubble-avatar avatar-user">JM</div>
+              <div class="bubble-text-wrap">
+                <div class="bubble-role">
+                  <span class="role-user">Josh Manalang (Student Inquiry)</span>
+                  <span>Prompt Query</span>
+                </div>
+                <div class="bubble-content">${data.aiLog.prompt}</div>
+              </div>
+            </div>
+
+            <!-- AI Response -->
+            <div class="chat-bubble">
+              <div class="bubble-avatar avatar-ai">AI</div>
+              <div class="bubble-text-wrap">
+                <div class="bubble-role">
+                  <span class="role-ai">AI Assistant (Engineering Guidance)</span>
+                  <span>Technical Analysis</span>
+                </div>
+                <div class="bubble-content" style="white-space: pre-line;">${data.aiLog.aiResponse}</div>
+              </div>
+            </div>
+
+            <!-- Student Implementation & Takeaway -->
+            <div class="ai-reflection-box">
+              <strong>Academic Takeaway & Student Implementation:</strong>
+              ${data.aiLog.learningOutcome}
+            </div>
+          </div>
+        </div>
+
+        <!-- System Architecture Section -->
+        <div class="modal-section">
+          <h4><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> Project Overview</h4>
+          <p>${data.overview}</p>
+        </div>
+
+        <div class="modal-section">
+          <h4><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg> System Architecture & Implementation</h4>
+          <p>${data.architecture}</p>
+        </div>
+
+        <div class="modal-section">
+          <h4><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Key Features & Deliverables</h4>
+          <ul class="modal-list">
+            ${featuresHtml}
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h4><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Technologies & Tools</h4>
+          <p style="font-family: var(--font-mono); color: var(--cyan); font-size: 0.84rem;">${data.stack}</p>
+        </div>
+      `;
+
+      const modal = document.getElementById('projectModal');
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('projectModal');
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOnBackdrop(e) {
+      if (e.target.id === 'projectModal') {
+        closeModal();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Filtering Functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+
+        projectCards.forEach(card => {
+          if (filter === 'all') {
+            card.removeAttribute('data-hidden');
+          } else {
+            const categories = card.dataset.cat.split(' ');
+            if (categories.includes(filter)) {
+              card.removeAttribute('data-hidden');
+            } else {
+              card.setAttribute('data-hidden', 'true');
+            }
+          }
+        });
+      });
+    });
+
+    // Mobile Navigation Toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    mobileToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      mobileToggle.textContent = navLinks.classList.contains('open') ? '✕' : '☰';
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        mobileToggle.textContent = '☰';
+      });
+    });
+
+    // Dynamic Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
